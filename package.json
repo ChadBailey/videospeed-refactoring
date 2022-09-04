@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "update-dependencies": "npm audit &&  ncu --interactive --format group",
+    "start": "web-ext --source-dir=src\\ run -t chromium --start-url example.com",
+    "start-firefox": "web-ext --source-dir=src\\ run --start-url example.com"
+  },
+  "dependencies": {
+    "web-ext": "^7.2.0"
+  },
+  "devDependencies": {
+    "npm-check-updates": "^16.0.6"
+  }
+}
