@@ -13,7 +13,7 @@
   },
   "permissions": ["storage"],
   "options_ui": {
-    "page": "options.html",
+    "page": "settings/options.html",
     "open_in_tab": true
   },
   "action": {
@@ -22,7 +22,7 @@
       "38": "icons/icon38.png",
       "48": "icons/icon48.png"
     },
-    "default_popup": "popup.html"
+    "default_popup": "popup/popup.html"
   },
   "content_scripts": [
     {
@@ -34,12 +34,14 @@
         "https://hangouts.google.com/*",
         "https://meet.google.com/*"
       ],
-      "css": ["inject.css"],
-      "js": ["inject.js"]
+      "css": ["content/content.css"],
+      "js": ["content/lib/content.js"]
     }
   ],
-  "web_accessible_resources": [{
-    "resources": ["inject.css", "shadow.css"],
-    "matches": ["http://*/*", "https://*/*", "file:///*"]
-  }]
+  "web_accessible_resources": [
+    {
+      "resources": ["content/content.css", "content/shadow.css"],
+      "matches": ["http://*/*", "https://*/*", "file:///*"]
+    }
+  ]
 }

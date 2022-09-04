@@ -24,3 +24,5 @@ for webpack. Going to attempt following this advice as a starting point.
 1. Guide suggests structure of background/content/settings to hold the
    respective files. VSC's files aren't named this way, so begin with renaming
    the existing files to match their role in manifest.json
+2. Changed file structure and names to loosely fit suggested guidelines, ensured
+   everything was working through a fast series of manual tests

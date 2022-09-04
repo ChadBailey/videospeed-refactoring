@@ -155,9 +155,8 @@ function getKeyBindings(action, what = "value") {
 }
 
 function setKeyBindings(action, value) {
-  tc.settings.keyBindings.find((item) => item.action === action)[
-    "value"
-  ] = value;
+  tc.settings.keyBindings.find((item) => item.action === action)["value"] =
+    value;
 }
 
 function defineVideoController() {
@@ -298,7 +297,7 @@ function defineVideoController() {
     var shadow = wrapper.attachShadow({ mode: "open" });
     var shadowTemplate = `
         <style>
-          @import "${chrome.runtime.getURL("shadow.css")}";
+          @import "${chrome.runtime.getURL("../shadow.css")}";
         </style>
 
         <div id="controller" style="top:${top}; left:${left}; opacity:${
@@ -361,13 +360,17 @@ function defineVideoController() {
         // this is a monstrosity but new FB design does not have *any*
         // semantic handles for us to traverse the tree, and deep nesting
         // that we need to bubble up from to get controller to stack correctly
-        let p = this.parent.parentElement.parentElement.parentElement
-          .parentElement.parentElement.parentElement.parentElement;
+        let p =
+          this.parent.parentElement.parentElement.parentElement.parentElement
+            .parentElement.parentElement.parentElement;
         p.insertBefore(fragment, p.firstChild);
         break;
       case location.hostname == "tv.apple.com":
         // insert before parent to bypass overlay
-        this.parent.parentNode.insertBefore(fragment, this.parent.parentNode.firstChild);
+        this.parent.parentNode.insertBefore(
+          fragment,
+          this.parent.parentNode.firstChild
+        );
         break;
       default:
         // Note: when triggered via a MutationRecord, it's possible that the
@@ -443,8 +446,7 @@ function setupListener() {
   function updateSpeedFromEvent(video) {
     // It's possible to get a rate change on a VIDEO/AUDIO that doesn't have
     // a video controller attached to it.  If we do, ignore it.
-    if (!video.vsc)
-      return;
+    if (!video.vsc) return;
     var speedIndicator = video.vsc.speedIndicator;
     var src = video.currentSrc;
     var speed = Number(video.playbackRate.toFixed(2));
@@ -559,7 +561,7 @@ function initializeNow(document) {
     defineVideoController();
   } else {
     var link = document.createElement("link");
-    link.href = chrome.runtime.getURL("inject.css");
+    link.href = chrome.runtime.getURL("../content.css");
     link.type = "text/css";
     link.rel = "stylesheet";
     document.head.appendChild(link);
@@ -663,19 +665,19 @@ function initializeNow(document) {
             case "attributes":
               if (
                 (mutation.target.attributes["aria-hidden"] &&
-                mutation.target.attributes["aria-hidden"].value == "false")
-                || mutation.target.nodeName === 'APPLE-TV-PLUS-PLAYER'
+                  mutation.target.attributes["aria-hidden"].value == "false") ||
+                mutation.target.nodeName === "APPLE-TV-PLUS-PLAYER"
               ) {
                 var flattenedNodes = getShadow(document.body);
-                var nodes = flattenedNodes.filter(
-                  (x) => x.tagName == "VIDEO"
-                );
+                var nodes = flattenedNodes.filter((x) => x.tagName == "VIDEO");
                 for (let node of nodes) {
                   // only add vsc the first time for the apple-tv case (the attribute change is triggered every time you click the vsc)
-                  if (node.vsc && mutation.target.nodeName === 'APPLE-TV-PLUS-PLAYER')
+                  if (
+                    node.vsc &&
+                    mutation.target.nodeName === "APPLE-TV-PLUS-PLAYER"
+                  )
                     continue;
-                  if (node.vsc)
-                    node.vsc.remove();
+                  if (node.vsc) node.vsc.remove();
                   checkForVideo(node, node.parentNode || mutation.target, true);
                 }
               }

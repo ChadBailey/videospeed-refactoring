@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelector("#config").addEventListener("click", function () {
-    window.open(chrome.runtime.getURL("options.html"));
+    window.open(chrome.runtime.getURL("../../settings/options.html"));
   });
 
   document.querySelector("#about").addEventListener("click", function () {
@@ -42,9 +42,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const suffix = `${enabled ? "" : "_disabled"}.png`;
     chrome.browserAction.setIcon({
       path: {
-        "19": "icons/icon19" + suffix,
-        "38": "icons/icon38" + suffix,
-        "48": "icons/icon48" + suffix
+        19: "icons/icon19" + suffix,
+        38: "icons/icon38" + suffix,
+        48: "icons/icon48" + suffix
       }
     });
   }
