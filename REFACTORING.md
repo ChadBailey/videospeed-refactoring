@@ -26,3 +26,8 @@ for webpack. Going to attempt following this advice as a starting point.
    the existing files to match their role in manifest.json
 2. Changed file structure and names to loosely fit suggested guidelines, ensured
    everything was working through a fast series of manual tests
+3. While restructuring, didn't really care for the proposed folder structure so
+   tweaked slightly
+4. Did not care for the number of dependencies, think I may be able to reduce
+   them so I'm going to consult the official docs of webpack and see if I can
+   apply webpack minimally
