@@ -1,0 +1,64 @@
+/*  Package Helper File
+
+These are notes/planned configs/things I otherwise did not want to delete, but 
+are not yet ready to be included in `package.json`. The ultimate goal is to make
+this make sense, be cross platform, and easy to parse. Based on my experience so
+far, these basic needs may be too lofty goals for package.json and require a
+completely separate tool for building/deploying/etc.
+
+*/
+
+{
+  "name": "videospeed-controller",
+  "description": "TODO: add description",
+  //TODO: Tightly couple version here with one in manifest
+  "version": "0.8",
+
+  "scripts": {
+    // Implemented
+    "update-dependencies": "npm audit &&  ncu --interactive --format group",
+    "chrome": "npm run build-chrome && npm run start-chrome",
+    "build-chrome": "cross-env NODE_ENV=development webpack --config ./webpack/chrome.js",
+    "bash": "echo echo $PWD | bash",
+    "start-chrome": "echo npx web-ext --source-dir=%CD%\\src run -t chromium --start-url file:///%CD%/test/assets/big_buck_bunny.mp4 | cmd",
+    "start-firefox": "web-ext --source-dir=src\\ run --start-url https://www.youtube.com/watch?v=aqz-KE-bpKQ",
+
+    //Not yet implemented - These are here for safekeeping- implementation is planned soon
+    // Preparation and setup
+    "build": "webpack --config webpack.config.js",
+    "test": "jest",
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
+    "init:profile": "mkdirp tmp/profile/chrome tmp/profile/brave tmp/profile/firefox",
+    "watch": "cross-env NODE_ENV=development webpack -w",
+
+    //Build
+    "build-all": "cross-env NODE_ENV=production webpack",
+    "build:firefox": "cross-env NODE_ENV=development webpack --config ./webpack/firefox.js",
+    "build:safari": "cross-env NODE_ENV=development webpack --config ./webpack/safari.js && xcrun safari-web-extension-converter dist/safari-prebuild --project-location dist/safari --force --no-open && rm -rf safari-prebuild",
+
+    // Running and reloading
+    "start-all": "concurrently npm:watch:chrome npm:reload:brave npm:watch:firefox npm:reload:firefox",
+    "start:chrome": "concurrently npm:watch:chrome npm:reload:chrome",
+    "start:brave": "concurrently npm:watch:chrome npm:reload:brave",
+    "start:firefox": "concurrently npm:watch:firefox npm:reload:firefox",
+    "watch:chrome": "cross-env NODE_ENV=development webpack --config ./webpack/chrome.js -w",
+    "watch:firefox": "cross-env NODE_ENV=development webpack --config ./webpack/firefox.js -w",
+    "watch:safari": "npm run init:safari && cross-env NODE_ENV=development webpack --config ./webpack/safari.js -w",
+    "reload:chrome": "cross-env web-ext --source-dir=dist\\chrome run -t chromium --chromium-binary  \"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe\" --start-url example.com",
+    "reload:brave": "web-ext --source-dir=dist\\chrome run -t chromium --chromium-binary /Applications/Brave\\ Browser.app/Contents/MacOS/Brave\\ Browser --start-url example.com --chromium-profile tmp/profile/brave --profile-create-if-missing --keep-profile-changes",
+    "reload:firefox": "web-ext --source-dir=dist\\firefox run --start-url example.com --firefox-profile tmp/profile/firefox --profile-create-if-missing --keep-profile-changes"
+  },
+  "dependencies": {
+    "css-loader": "^6.7.1",
+    "mkdirp": "^1.0.4",
+    "rimraf": "^3.0.2",
+    "style-loader": "^3.3.1",
+    "web-ext": "^7.2.0",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "devDependencies": {
+    "npm-check-updates": "^16.1.0"
+  }
+}

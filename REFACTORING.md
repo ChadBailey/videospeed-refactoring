@@ -15,7 +15,7 @@
 - [ ] Tightly couple `package.json` and `manifest.json` such that updates only
       happen in one location ensuring no state conflict.
 
-## Notes
+## Refactoring Journey
 
 These notes are informal notes to keep track of the decisions I've made and what
 lead me to them. I may delete them later, but I think it may be helpful to look
@@ -38,7 +38,7 @@ back on so keeping directly in the repo for now.
 4. Added update-dependencies script as a nice way to conveniently update npm
    dependencies as they tend to get outdated rather quickly.
 
-## File structure
+### File structure
 
 Determined need to use some type of utility for allowing importing. Likely will
 eventually do something like Babel, but hoping for simplest and least impact to
@@ -59,7 +59,7 @@ for webpack. Going to attempt following this advice as a starting point.
    them so I'm going to consult the official docs of webpack and see if I can
    apply webpack minimally
 
-## Parcel
+### Parcel
 
 While investigating different packers, discovered Parcel has a pretty nice web
 extension
@@ -162,7 +162,7 @@ happens.
 
 2. Removed Parcel, think I'll stick with webpack `npm uninstall parcel`
 
-## Webpack
+### Webpack
 
 I may have wasted a little time exploring, but at least I've come away with
 better understanding. Legitimately trying out webpack now, I've just been
@@ -185,4 +185,112 @@ that may be helpful, but not going to attempt using it yet.
    1. `rimraf` to clean the `dist` dir before building
    2. `mkdirp` to create empty profile directories (in anticipation of creating
       sticky browser profiles)
-5. Now need html, css, and .json files to transfer over.
+
+### Building with NPM
+
+> Note that I've chosen intentionally to include all build tools in dependencies
+> as opposed to dev-dependencies, as I think consider dev dependencies
+> unnecessary for deployment and build tools would absolutely be required for
+> deployment. I may change this later once I have a better handle on what
+> "development" and "deploying" mean in the context of JS projects
+
+- To improve manual testing flow, downloaded local copy of big buck bunny to
+  /test/assets
+- Trying to make cross-platform way to launch with file, but tooling isn't the
+  easiest to work with.
+- Follow [this](https://stackoverflow.com/a/71214387/7438379) SO post that gives
+  some clues as to how I can pull this off
+- So far the best I've been able to come up with is modifying the
+  `npm run start-chrome` script with the following:
+  - `cross-env npx web-ext --source-dir=src\\ run -t chromium --start-url file://${PWD}/test/assets/big_buck_bunny.mp4 | cmd`
+- This works, but not ideal (obviously, windows only)... Changing to use these
+  values does not work as intended
+
+  ```jsonc
+   "config": {
+      "video": "--start-url file://${PWD}/test/assets/big_buck_bunny.mp4"
+   },
+   "scripts": {
+      // ...
+      "start-chrome": "cross-env echo npx web-ext --source-dir=src\\ run -t chromium ${npm_package_config_video} | cmd",
+   }
+  ```
+
+  This results in a partially-working config that attempts starting the atring
+  literal in `config.video` - so ${PWD} does not get updated
+
+  This is presumably not due to the missing environment variable, given that I
+  am using git-bash. I attempting to issue `cross-env` in front, but that did
+  not appear to execute as expected
+
+  testing from the terminal does indeed echo the expected outcome:
+
+  ```bash
+  [01:01 PM] ~/code/videospeed-refactoring (master) $ npx cross-env echo --start-url file://${PWD}/test/assets/big_buck_bunny.mp4
+  --start-url file:///c/Users/chadb/code/videospeed-refactoring/test/assets/big_buck_bunny.mp4
+  ```
+
+  I think the best option will be to use npx and bash. I do not know if this
+  will work with windows users who do not have CYGWIN unfortunately, and have no
+  easy way to test.
+
+  Created a temporary run script with the following that illuminated the
+  problem:
+
+  ```jsonc
+   "bash": "cross-env echo echo $PWD | bash",
+  ```
+
+  This results in the following output:
+
+  ```bash
+  01:10 PM] ~/code/videospeed-refactoring (master) $ npm run bash
+
+  > videospeed-controller@0.8 bash
+  > cross-env echo echo $PWD | bash
+
+  %PWD%
+  ```
+
+  This proves that cross-env simply naively replaces $VAR with %VAR% with
+  absolutely zero context awareness. That's unfortunate. I thought it was a more
+  well designed tool than a dumb string replacement tool.
+
+  To fix, I simply removed `cross-env` making it now
+  `"bash": "echo echo $PWD | bash",`
+
+  ```bash
+  [01:10 PM] ~/code/videospeed-refactoring (master) $ npm run bash
+
+  > videospeed-controller@0.8 bash
+  > echo echo $PWD | bash
+
+  /c/Users/chadb/code/videospeed-refactoring
+  ```
+
+  This works, but confirms my fears that `cross-env` is insufficient tooling for
+  true cross environment compatibility. I will create a windows and linux/macos
+  version I guess. It sounds to me like ultimately this will end up needing to
+  use a fully featured build tool like make which is disappointing.
+
+  Final script (windows-only):
+
+  `"start-chrome": "echo npx web-ext --source-dir=%CD%\\src run -t chromium --start-url file:///%CD%/test/assets/big_buck_bunny.mp4 | cmd"`
+
+  git-bash/macos version I tried does not work on my machine, since Chrome is
+  unable to read file urls formatted using the MINGW version of paths i.e.
+  `\c\users\...`. It did appear to replace the path correctly though.
+
+  Still, issuing a command to echo then piping that into a shell for execution
+  is an extremely hacky way to approach this. I feel I will be setting up a
+  build tool soon enough to replace npm's terrible built-in script
+  functionality.
+
+> I've spent too many cycles on this, time to move on...
+
+- Added
+
+### Back to Webpack
+
+1. Now need html, css, and .json files to transfer over.
+2. Before I go breaking things, going to commit what I have so far...
