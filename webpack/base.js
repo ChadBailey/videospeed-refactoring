@@ -21,7 +21,7 @@ const config = {
   // mode: "production",
   // devtool options: https://webpack.js.org/configuration/devtool/
   // devtool: "none",
-  mode: "production",
+  mode: "development",
   entry: {
     // background: join(Background, "background.js"),
     popup: join(Popup, "popup.js"),
