@@ -7,22 +7,22 @@
   "description": "Speed up, slow down, advance and rewind HTML5 audio/video with shortcuts",
   "homepage_url": "https://github.com/igrigorik/videospeed",
   "icons": {
-    "16": "assets/images/icon16.png",
-    "48": "assets/images/icon48.png",
-    "128": "assets/images/icon128.png"
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
   },
   "permissions": ["storage"],
   "options_ui": {
-    "page": "options/options.html",
+    "page": "options.html",
     "open_in_tab": true
   },
   "action": {
     "default_icon": {
-      "19": "assets/images/icon19.png",
-      "38": "assets/images/icon38.png",
-      "48": "assets/images/icon48.png"
+      "19": "icon19.png",
+      "38": "icon38.png",
+      "48": "icon48.png"
     },
-    "default_popup": "popup/popup.html"
+    "default_popup": "popup.html"
   },
   "content_scripts": [
     {
@@ -34,13 +34,13 @@
         "https://hangouts.google.com/*",
         "https://meet.google.com/*"
       ],
-      "css": ["content/content.css", "content/shadow.css"],
-      "js": ["content/content.js"]
+      "css": ["content.css", "shadow.css"],
+      "js": ["content.js"]
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": ["content/content.css", "content/shadow.css"],
+      "resources": ["content/content.css", "shadow.css"],
       "matches": ["http://*/*", "https://*/*", "file:///*"]
     }
   ]

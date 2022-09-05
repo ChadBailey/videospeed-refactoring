@@ -294,3 +294,13 @@ that may be helpful, but not going to attempt using it yet.
 
 1. Now need html, css, and .json files to transfer over.
 2. Before I go breaking things, going to commit what I have so far...
+3. Spent some time optimizing... added some test code and Big Buck Bunny to make
+   manual testing a much more fluid and simple process.
+4. Made big_buck_bunny loop and ability to enter/exit fullscreen while testing.
+   For now, this is hard-coded and can't be released this way.
+5. Flattened file structure for simplicity - we can add more folders later if
+   needed
+6. Added copy plugin... for now straight copying html and css files with no
+   compiling. May improve later, but looking for doing as little change as
+   possible for now.
+7. Committing progress...
