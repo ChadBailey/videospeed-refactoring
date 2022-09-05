@@ -34,7 +34,7 @@
         "https://hangouts.google.com/*",
         "https://meet.google.com/*"
       ],
-      "css": ["content/content.css"],
+      "css": ["content/content.css", "content/shadow.css"],
       "js": ["content/content.js"]
     }
   ],
