@@ -13,7 +13,7 @@
   },
   "permissions": ["storage"],
   "options_ui": {
-    "page": "settings/options.html",
+    "page": "options/options.html",
     "open_in_tab": true
   },
   "action": {
@@ -35,7 +35,7 @@
         "https://meet.google.com/*"
       ],
       "css": ["content/content.css"],
-      "js": ["content/lib/content.js"]
+      "js": ["content/content.js"]
     }
   ],
   "web_accessible_resources": [
