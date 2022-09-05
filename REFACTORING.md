@@ -1,5 +1,22 @@
 # Refactoring Notes
 
+## TODO: Lists
+
+### 1.0 MVP
+
+- [ ] Get `.css`, `.html`, and `.json` files to compile into /dist
+- [ ] Test to ensure working exactly as before
+- [ ] Add test tooling
+- [ ] Add tests to `package.json` via `npm test`
+- [ ] Create series of initial tests
+
+### 1.1
+
+- [ ] Tightly couple `package.json` and `manifest.json` such that updates only
+      happen in one location ensuring no state conflict.
+
+## Notes
+
 These notes are informal notes to keep track of the decisions I've made and what
 lead me to them. I may delete them later, but I think it may be helpful to look
 back on so keeping directly in the repo for now.
