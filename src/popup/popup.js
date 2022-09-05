@@ -42,9 +42,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const suffix = `${enabled ? "" : "_disabled"}.png`;
     chrome.browserAction.setIcon({
       path: {
-        19: "../../static/images/icon19" + suffix,
-        38: "../../static/images/icon38" + suffix,
-        48: "../../static/images/icon48" + suffix
+        19: "../../assets/images/icon19" + suffix,
+        38: "../../assets/images/icon38" + suffix,
+        48: "../../assets/images/icon48" + suffix
       }
     });
   }

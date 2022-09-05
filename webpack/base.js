@@ -6,7 +6,7 @@ const Root = join(__dirname, "..");
 const Source = join(Root, "src");
 const Dist = join(Root, "dist");
 
-const Static = join(Source, "static");
+const Assets = join(Source, "assets");
 const Background = join(Source, "background");
 const Content = join(Source, "content");
 const Popup = join(Source, "popup");
@@ -36,7 +36,7 @@ const config = {
     rules: [
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: "static/images"
+        type: "assets/images"
       },
       {
         test: /\.css$/i,
@@ -70,7 +70,7 @@ const config = {
       background: Background,
       content: Content,
       popup: Popup,
-      static: Static,
+      assets: Assets,
       options: Options
     }
   }

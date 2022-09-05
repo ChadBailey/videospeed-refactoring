@@ -7,9 +7,9 @@
   "description": "Speed up, slow down, advance and rewind HTML5 audio/video with shortcuts",
   "homepage_url": "https://github.com/igrigorik/videospeed",
   "icons": {
-    "16": "static/images/icon16.png",
-    "48": "static/images/icon48.png",
-    "128": "static/images/icon128.png"
+    "16": "assets/images/icon16.png",
+    "48": "assets/images/icon48.png",
+    "128": "assets/images/icon128.png"
   },
   "permissions": ["storage"],
   "options_ui": {
@@ -18,9 +18,9 @@
   },
   "action": {
     "default_icon": {
-      "19": "static/images/icon19.png",
-      "38": "static/images/icon38.png",
-      "48": "static/images/icon48.png"
+      "19": "assets/images/icon19.png",
+      "38": "assets/images/icon38.png",
+      "48": "assets/images/icon48.png"
     },
     "default_popup": "popup/popup.html"
   },
