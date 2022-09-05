@@ -496,6 +496,26 @@ function setupListener() {
 }
 
 function initializeWhenReady(document) {
+  // TEST CODE! TODO: Figure out how to actually make this if statement
+  // meaningfully check if in "test mode". Chrome offers very little tooling
+  // for environments I've noticed... may need to do at build stage :S
+  if (true) {
+    if (location.href.startsWith("file:")) {
+      document.getElementsByTagName("video")[0].loop = true;
+      window.addEventListener("keypress", (event) => {
+        if (event.key == "f") {
+          if (!document.fullscreenElement) {
+            document.getElementsByTagName("video")[0].requestFullscreen();
+          } else {
+            document.exitFullscreen();
+          }
+        }
+      });
+    }
+  }
+
+  // END TEST CODE
+
   log("Begin initializeWhenReady", 5);
   if (isBlacklisted()) {
     return;
