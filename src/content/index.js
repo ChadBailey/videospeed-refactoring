@@ -1,7 +1,5 @@
 import "./index.css";
 
-console.log("CONTENT SCRIPT LOADING");
-
 var regStrip = /^[\r\t\f\v ]+|[\r\t\f\v ]+$/gm;
 var regEndsWithFlags = /\/(?!.*(.).*\1)[gimsuy]*$/;
 
@@ -42,7 +40,8 @@ var tc = {
   6 - debug high verbosity + stack trace on each message
 */
 function log(message, level) {
-  let verbosity = 5;
+  let verbosity = tc.settings.logLevel;
+  let level;
   if (typeof level === "undefined") {
     level = tc.settings.defaultLogLevel;
   }
@@ -61,7 +60,6 @@ function log(message, level) {
     }
   }
 }
-console.log("LOGGING INITIALIZED");
 
 chrome.storage.sync.get(tc.settings, function (storage) {
   tc.settings.keyBindings = storage.keyBindings; // Array
@@ -150,7 +148,6 @@ chrome.storage.sync.get(tc.settings, function (storage) {
 
   initializeWhenReady(document);
 });
-console.log("GOT SETTINGS - INITIALIZE WHEN READY");
 
 function getKeyBindings(action, what = "value") {
   try {
@@ -504,8 +501,6 @@ function setupListener() {
 }
 
 function initializeWhenReady(document) {
-  console.log("INITIALIZING CONTROLLER");
-
   // TEST CODE! TODO: Figure out how to actually make this if statement
   // meaningfully check if in "test mode". Chrome offers very little tooling
   // for environments I've noticed... may need to do at build stage :S
@@ -527,7 +522,6 @@ function initializeWhenReady(document) {
   // END TEST CODE
 
   log("Begin initializeWhenReady", 5);
-  console.log("LOGGED EVENT: Begin initializeWhenReady");
   if (isBlacklisted()) {
     log("Site is blacklisted, ending initializeWhenReady", 5);
     return;

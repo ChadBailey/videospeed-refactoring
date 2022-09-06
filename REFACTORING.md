@@ -304,3 +304,21 @@ that may be helpful, but not going to attempt using it yet.
    compiling. May improve later, but looking for doing as little change as
    possible for now.
 7. Committing progress...
+
+Decided to follow the template provided by
+<https://github.com/Debdut/browser-extension> so replaced src directory with
+template versions. Also added missing components like tsconfig,
+postcss.config.js, and the webpack configs
+
+1. Modified existing videospeed controller code to fit template structure
+2. Enabled verbose logging and added some console log statements to aid in
+   debugging
+3. Updated code to fix new bugs
+4. Created css folder in assets to carry over shadow.css
+
+`shadow.css` does not work for file:// urls, Chrome is blocking it for some
+reason. Works fine when URL is not a file:// url.
+
+`Failed to load resource: net::ERR_BLOCKED_BY_CLIENT`
+
+1. Disabled extra logging and removed console log statements, left in test code
