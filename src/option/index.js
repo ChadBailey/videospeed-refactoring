@@ -1,3 +1,5 @@
+import "./index.css";
+
 var regStrip = /^[\r\t\f\v ]+|[\r\t\f\v ]+$/gm;
 
 var tcDefaults = {
@@ -16,13 +18,13 @@ var tcDefaults = {
     { action: "rewind", key: 90, value: 10, force: false, predefined: true }, // Z
     { action: "advance", key: 88, value: 10, force: false, predefined: true }, // X
     { action: "reset", key: 82, value: 1, force: false, predefined: true }, // R
-    { action: "fast", key: 71, value: 1.8, force: false, predefined: true } // G
+    { action: "fast", key: 71, value: 1.8, force: false, predefined: true }, // G
   ],
   blacklist: `www.instagram.com
     twitter.com
     imgur.com
     teams.microsoft.com
-  `.replace(regStrip, "")
+  `.replace(regStrip, ""),
 };
 
 var keyBindings = [];
@@ -73,7 +75,7 @@ var keyCodeAliases = {
   219: "[",
   220: "\\",
   221: "]",
-  222: "'"
+  222: "'",
 };
 
 function recordKeyPress(e) {
@@ -172,7 +174,7 @@ function createKeyBindings(item) {
     key: key,
     value: value,
     force: force,
-    predefined: predefined
+    predefined: predefined,
   });
 }
 
@@ -239,7 +241,7 @@ function save_options() {
     "fasterKeyCode",
     "rewindKeyCode",
     "advanceKeyCode",
-    "fastKeyCode"
+    "fastKeyCode",
   ]);
   chrome.storage.sync.set(
     {
@@ -250,7 +252,7 @@ function save_options() {
       startHidden: startHidden,
       controllerOpacity: controllerOpacity,
       keyBindings: keyBindings,
-      blacklist: blacklist.replace(regStrip, "")
+      blacklist: blacklist.replace(regStrip, ""),
     },
     function () {
       // Update status to let user know options were saved.
@@ -282,7 +284,7 @@ function restore_options() {
         action: "display",
         value: 0,
         force: false,
-        predefined: true
+        predefined: true,
       });
     }
 

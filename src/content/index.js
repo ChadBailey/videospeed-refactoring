@@ -1,3 +1,7 @@
+import "./index.css";
+
+console.log("CONTENT SCRIPT LOADING");
+
 var regStrip = /^[\r\t\f\v ]+|[\r\t\f\v ]+$/gm;
 var regEndsWithFlags = /\/(?!.*(.).*\1)[gimsuy]*$/;
 
@@ -22,7 +26,7 @@ var tc = {
       teams.microsoft.com
     `.replace(regStrip, ""),
     defaultLogLevel: 4,
-    logLevel: 3
+    logLevel: 5
   },
 
   // Holds a reference to all of the AUDIO/VIDEO DOM elements we've attached to
@@ -38,7 +42,7 @@ var tc = {
   6 - debug high verbosity + stack trace on each message
 */
 function log(message, level) {
-  verbosity = tc.settings.logLevel;
+  let verbosity = 5;
   if (typeof level === "undefined") {
     level = tc.settings.defaultLogLevel;
   }
@@ -57,6 +61,7 @@ function log(message, level) {
     }
   }
 }
+console.log("LOGGING INITIALIZED");
 
 chrome.storage.sync.get(tc.settings, function (storage) {
   tc.settings.keyBindings = storage.keyBindings; // Array
@@ -145,6 +150,7 @@ chrome.storage.sync.get(tc.settings, function (storage) {
 
   initializeWhenReady(document);
 });
+console.log("GOT SETTINGS - INITIALIZE WHEN READY");
 
 function getKeyBindings(action, what = "value") {
   try {
@@ -181,7 +187,7 @@ function defineVideoController() {
 
     this.video = target;
     this.parent = target.parentElement || parent;
-    storedSpeed = tc.settings.speeds[target.currentSrc];
+    let storedSpeed = tc.settings.speeds[target.currentSrc];
     if (!tc.settings.rememberSpeed) {
       if (!storedSpeed) {
         log(
@@ -297,7 +303,7 @@ function defineVideoController() {
     var shadow = wrapper.attachShadow({ mode: "open" });
     var shadowTemplate = `
         <style>
-          @import "${chrome.runtime.getURL("shadow.css")}";
+          @import "${chrome.runtime.getURL("assets/css/shadow.css")}";
         </style>
 
         <div id="controller" style="top:${top}; left:${left}; opacity:${
@@ -383,12 +389,13 @@ function defineVideoController() {
 }
 
 function escapeStringRegExp(str) {
-  matchOperatorsRe = /[|\\{}()[\]^$+*?.]/g;
+  let matchOperatorsRe = /[|\\{}()[\]^$+*?.]/g;
   return str.replace(matchOperatorsRe, "\\$&");
 }
 
 function isBlacklisted() {
-  blacklisted = false;
+  log("Checking if blacklisted", 5);
+  let blacklisted = false;
   tc.settings.blacklist.split("\n").forEach((match) => {
     match = match.replace(regStrip, "");
     if (match.length == 0) {
@@ -416,6 +423,7 @@ function isBlacklisted() {
     }
 
     if (regexp.test(location.href)) {
+      log("Site blacklisted, disabling", 5);
       blacklisted = true;
       return;
     }
@@ -496,6 +504,8 @@ function setupListener() {
 }
 
 function initializeWhenReady(document) {
+  console.log("INITIALIZING CONTROLLER");
+
   // TEST CODE! TODO: Figure out how to actually make this if statement
   // meaningfully check if in "test mode". Chrome offers very little tooling
   // for environments I've noticed... may need to do at build stage :S
@@ -517,9 +527,12 @@ function initializeWhenReady(document) {
   // END TEST CODE
 
   log("Begin initializeWhenReady", 5);
+  console.log("LOGGED EVENT: Begin initializeWhenReady");
   if (isBlacklisted()) {
+    log("Site is blacklisted, ending initializeWhenReady", 5);
     return;
   }
+  log("Site is not blacklisted, continuing initializeWhenReady", 5);
   window.onload = () => {
     initializeNow(window.document);
   };
@@ -581,7 +594,7 @@ function initializeNow(document) {
     defineVideoController();
   } else {
     var link = document.createElement("link");
-    link.href = chrome.runtime.getURL("content.css");
+    link.href = chrome.runtime.getURL("content.scss");
     link.type = "text/css";
     link.rel = "stylesheet";
     document.head.appendChild(link);
