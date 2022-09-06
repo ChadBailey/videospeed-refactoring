@@ -5,6 +5,10 @@ const GenerateJsonFromJsPlugin = require("generate-json-from-js-webpack-plugin")
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const { join } = require("path");
 const dotenv = require("dotenv");
+const ZipPlugin = require("zip-webpack-plugin");
+
+const { short_name } = require("../src/manifest/app_info");
+const { version } = require("../src/manifest/version.json");
 
 const prodPlugins = [],
   isProd = process.env.NODE_ENV === "production";
@@ -182,6 +186,10 @@ const buildConfig = (browser, path) => ({
     new GenerateJsonFromJsPlugin({
       path: join(Source, "manifest", `${browser}.js`),
       filename: "manifest.json"
+    }),
+    new ZipPlugin({
+      path: "../release",
+      filename: short_name + "_" + browser + "-" + version + ".zip"
     })
   ]
 });
