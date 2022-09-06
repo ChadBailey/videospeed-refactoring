@@ -2,14 +2,13 @@
   "scripts": {
     "update-dependencies": "npm audit &&  ncu --interactive --format group",
     "chrome": "npm run clean && npm run build:chrome && echo npx web-ext --source-dir=%CD%\\dist\\chrome run -t chromium --start-url file:///%CD%/test/assets/big_buck_bunny.mp4 --chromium-profile %CD%/.nocommit/profiles/chrome --profile-create-if-missing --keep-profile-changes | cmd",
+    "brave": "npm run clean && npm run build:chrome && echo npx web-ext --source-dir=%CD%\\dist\\chrome run -t chromium --chromium-binary \"C:\\Program Files (x86)\\BraveSoftware\\Brave-Browser\\Application\\brave.exe\" --start-url file:///%CD%/test/assets/big_buck_bunny.mp4 --chromium-profile %CD%/.nocommit/profiles/chrome --profile-create-if-missing --keep-profile-changes | cmd",
     "clean": "rimraf dist",
     "init:profile": "mkdirp .nocommit/profiles/chrome .nocommit/profiles/brave .nocommit/profiles/firefox",
     "prebuild": "npm run clean",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "clean-chrome": "rimraf dist/chrome",
-    "build:chrome": "npm run clean-chrome && cross-env NODE_ENV=development webpack --config ./webpack/chrome.js",
-    "start-chrome": "echo npx web-ext --source-dir=%CD%\\src run -t chromium --start-url file:///%CD%/test/assets/big_buck_bunny.mp4 --chromium-profile %CD%/.nocommit/profiles/chrome --profile-create-if-missing --keep-profile-changes | cmd",
-    "start-firefox": "echo npx web-ext --source-dir=%CD%\\src run -t firefox --start-url file:///%CD%/test/assets/big_buck_bunny.mp4 | cmd"
+    "build:chrome": "npm run clean-chrome && cross-env NODE_ENV=development webpack --config ./webpack/chrome.js"
   },
   "dependencies": {
     "@babel/cli": "^7.18.10",
