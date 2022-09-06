@@ -12,7 +12,7 @@
 
 ### 1.0 Uncommitted Objectives
 
-= [ ] Auto-zip releases for easier distribution
+- [ ] Auto-zip releases for easier distribution
 
 > Auto-zipping works perfectly, but the manifest.json is created at the same
 > time as it's zipped resulting in a missing manifest.json. Not a critical
