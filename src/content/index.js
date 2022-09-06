@@ -41,7 +41,6 @@ var tc = {
 */
 function log(message, level) {
   let verbosity = tc.settings.logLevel;
-  let level;
   if (typeof level === "undefined") {
     level = tc.settings.defaultLogLevel;
   }
