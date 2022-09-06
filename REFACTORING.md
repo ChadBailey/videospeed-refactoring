@@ -4,11 +4,21 @@
 
 ### 1.0 MVP
 
-- [ ] Get `.css`, `.html`, and `.json` files to compile into /dist
-- [ ] Test to ensure working exactly as before
+- [x] Get `.css`, `.html`, and `.json` files to compile into /dist
+- [x] Test to ensure working exactly as before - In progress, so far so good
 - [ ] Add test tooling
 - [ ] Add tests to `package.json` via `npm test`
 - [ ] Create series of initial tests
+
+### 1.0 Uncommitted Objectives
+
+= [ ] Auto-zip releases for easier distribution
+
+> Auto-zipping works perfectly, but the manifest.json is created at the same
+> time as it's zipped resulting in a missing manifest.json. Not a critical
+> thing, just thought it would be neat if I could get it working. Likely won't
+> spend much more time on trying since the github action already does this
+> afaik.
 
 ### 1.1
 
