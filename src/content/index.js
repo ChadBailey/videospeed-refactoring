@@ -505,11 +505,13 @@ function initializeWhenReady(document) {
   // for environments I've noticed... may need to do at build stage :S
   if (true) {
     if (location.href.startsWith("file:")) {
-      document.getElementsByTagName("video")[0].loop = true;
+      let video = document.getElementsByTagName("video")[0];
+      video.muted = true;
+      video.loop = true;
       window.addEventListener("keypress", (event) => {
         if (event.key == "f") {
           if (!document.fullscreenElement) {
-            document.getElementsByTagName("video")[0].requestFullscreen();
+            video.requestFullscreen();
           } else {
             document.exitFullscreen();
           }
