@@ -33,7 +33,7 @@ completely separate tool for building/deploying/etc.
     "watch": "cross-env NODE_ENV=development webpack -w",
 
     //Build
-    "build-all": "cross-env NODE_ENV=production webpack",
+    "build-all": "cross-env NODE_ENV=development webpack",
     "build:firefox": "cross-env NODE_ENV=development webpack --config ./webpack/firefox.js",
     "build:safari": "cross-env NODE_ENV=development webpack --config ./webpack/safari.js && xcrun safari-web-extension-converter dist/safari-prebuild --project-location dist/safari --force --no-open && rm -rf safari-prebuild",
 
