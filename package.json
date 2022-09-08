@@ -8,7 +8,12 @@
     "prebuild": "npm run clean",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "clean-chrome": "rimraf dist/chrome",
-    "build:chrome": "npm run clean-chrome && cross-env NODE_ENV=development webpack --config ./webpack/chrome.js"
+    "build:chrome": "npm run clean-chrome && cross-env NODE_ENV=development webpack --config ./webpack/chrome.js",
+    "launch:chrome": "echo npx web-ext --source-dir=%CD%\\dist\\chrome run -t chromium --start-url file:///%CD%/test/assets/big_buck_bunny.mp4 --chromium-profile %CD%/.nocommit/profiles/chrome --profile-create-if-missing --keep-profile-changes | cmd",
+    "launch:vsc-main": "echo npx web-ext --source-dir=%CD%\\.nocommit\\vsc-main run -t chromium --start-url file:///%CD%/test/assets/big_buck_bunny.mp4 --chromium-profile %CD%/.nocommit/profiles/chrome --profile-create-if-missing --keep-profile-changes | cmd",
+    "clone-vsc-main": "git clone https://github.com/igrigorik/videospeed.git .nocommit/vsc-main",
+    "show-coverage": "jest --coverage && echo npx web-ext --source-dir=%CD%\\dist\\chrome run -t chromium --start-url file:///%CD%/.nocommit/coverage/lcov-report/index.html --chromium-profile %CD%/.nocommit/profiles/chrome --profile-create-if-missing --keep-profile-changes | cmd",
+    "test": "jest"
   },
   "dependencies": {
     "@babel/cli": "^7.18.10",
@@ -37,6 +42,8 @@
     "zip-webpack-plugin": "^4.0.1"
   },
   "devDependencies": {
+    "jest": "^29.0.2",
+    "jest-environment-jsdom": "^29.0.2",
     "npm-check-updates": "^16.1.0"
   }
 }
