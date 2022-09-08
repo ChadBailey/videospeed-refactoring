@@ -38,17 +38,37 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function toggleEnabledUI(enabled) {
-    document.querySelector("#enable").classList.toggle("hide", enabled);
-    document.querySelector("#disable").classList.toggle("hide", !enabled);
+    console.log(`Hiding/unhiding VSC. Enabled: ${enabled}`);
+    // Having two buttons is a little silly when updating only one to reflect
+    // current state would be ideal.
+    document.querySelector("#enable").style.display = `${
+      enabled ? "none" : ""
+    }`;
+    document.querySelector("#disable").style.display = `${
+      enabled ? "" : "none"
+    }`;
 
-    const suffix = `${enabled ? "" : "_disabled"}.png`;
-    chrome.browserAction.setIcon({
-      path: {
-        19: "../../assets/images/icon19" + suffix,
-        38: "../../assets/images/icon38" + suffix,
-        48: "../../assets/images/icon48" + suffix
-      }
-    });
+    // Legacy code safekeeping. The original method was to add/remove the
+    // "hide" class. I do not know why this stopped working, I only know that
+    // directly applying the display style resolved it. This should be a target
+    // for clean up in a future release.
+
+    // document.querySelector("#enable").classList.toggle("hide", enabled);
+    // document.querySelector("#disable").classList.toggle("hide", !enabled);
+
+    // const suffix = `${enabled ? "" : "_disabled"}.png`;
+    // console.log(`Setting icon suffix: ${suffix}`);
+
+    // !! browserAction was removed in Manifest V3
+    // TODO: Migrate to https://developer.chrome.com/docs/extensions/reference/declarativeContent/
+
+    // chrome.browserAction.setIcon({
+    //   path: {
+    //     19: "../../assets/images/icon19" + suffix,
+    //     38: "../../assets/images/icon38" + suffix,
+    //     48: "../../assets/images/icon48" + suffix
+    //   }
+    // });
   }
 
   function settingsSavedReloadMessage(enabled) {
