@@ -22,7 +22,6 @@ module.exports = {
   content_scripts: [
     {
       matches: ["<all_urls>"],
-      css: ["assets/css/shadow.css"],
       js: ["content.js"],
     },
   ],
