@@ -25,11 +25,11 @@ var tc = {
       teams.microsoft.com
     `.replace(regStrip, ""),
     defaultLogLevel: 4,
-    logLevel: 3
+    logLevel: 6,
   },
 
   // Holds a reference to all of the AUDIO/VIDEO DOM elements we've attached to
-  mediaElements: []
+  mediaElements: [],
 };
 
 let logger = new Logger();
@@ -46,42 +46,42 @@ chrome.storage.sync.get(tc.settings, function (storage) {
       key: Number(storage.slowerKeyCode) || 83,
       value: Number(storage.speedStep) || 0.1,
       force: false,
-      predefined: true
+      predefined: true,
     }); // default S
     tc.settings.keyBindings.push({
       action: "faster",
       key: Number(storage.fasterKeyCode) || 68,
       value: Number(storage.speedStep) || 0.1,
       force: false,
-      predefined: true
+      predefined: true,
     }); // default: D
     tc.settings.keyBindings.push({
       action: "rewind",
       key: Number(storage.rewindKeyCode) || 90,
       value: Number(storage.rewindTime) || 10,
       force: false,
-      predefined: true
+      predefined: true,
     }); // default: Z
     tc.settings.keyBindings.push({
       action: "advance",
       key: Number(storage.advanceKeyCode) || 88,
       value: Number(storage.advanceTime) || 10,
       force: false,
-      predefined: true
+      predefined: true,
     }); // default: X
     tc.settings.keyBindings.push({
       action: "reset",
       key: Number(storage.resetKeyCode) || 82,
       value: 1.0,
       force: false,
-      predefined: true
+      predefined: true,
     }); // default: R
     tc.settings.keyBindings.push({
       action: "fast",
       key: Number(storage.fastKeyCode) || 71,
       value: Number(storage.fastSpeed) || 1.8,
       force: false,
-      predefined: true
+      predefined: true,
     }); // default: G
     tc.settings.version = "0.5.3";
 
@@ -95,7 +95,7 @@ chrome.storage.sync.get(tc.settings, function (storage) {
       startHidden: tc.settings.startHidden,
       enabled: tc.settings.enabled,
       controllerOpacity: tc.settings.controllerOpacity,
-      blacklist: tc.settings.blacklist.replace(regStrip, "")
+      blacklist: tc.settings.blacklist.replace(regStrip, ""),
     });
   }
   tc.settings.lastSpeed = Number(storage.lastSpeed);
@@ -117,7 +117,7 @@ chrome.storage.sync.get(tc.settings, function (storage) {
       key: Number(storage.displayKeyCode) || 86,
       value: 0,
       force: false,
-      predefined: true
+      predefined: true,
     }); // default V
   }
 
@@ -238,7 +238,7 @@ function defineVideoController() {
       });
     });
     observer.observe(target, {
-      attributeFilter: ["src", "currentSrc"]
+      attributeFilter: ["src", "currentSrc"],
     });
   };
 
@@ -725,7 +725,7 @@ function initializeNow(document) {
   observer.observe(document, {
     attributeFilter: ["aria-hidden", "data-focus-method"],
     childList: true,
-    subtree: true
+    subtree: true,
   });
 
   if (tc.settings.audioBoolean) {
@@ -757,7 +757,7 @@ function setSpeed(video, speed) {
   if (tc.settings.forceLastSavedSpeed) {
     video.dispatchEvent(
       new CustomEvent("ratechange", {
-        detail: { origin: "videoSpeed", speed: speedvalue }
+        detail: { origin: "videoSpeed", speed: speedvalue },
       })
     );
   } else {
@@ -921,7 +921,7 @@ function handleDrag(video, e) {
   const initialMouseXY = [e.clientX, e.clientY];
   const initialControllerXY = [
     parseInt(shadowController.style.left),
-    parseInt(shadowController.style.top)
+    parseInt(shadowController.style.top),
   ];
 
   const startDragging = (e) => {
