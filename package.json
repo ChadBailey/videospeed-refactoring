@@ -1,6 +1,9 @@
 {
   "scripts": {
     "update-dependencies": "npm audit &&  ncu --interactive --format group",
+    "show-coverage": "jest --coverage && echo npx web-ext --source-dir=%CD%\\dist\\chrome run -t chromium --start-url file:///%CD%/.nocommit/coverage/lcov-report/index.html --chromium-profile %CD%/.nocommit/profiles/chrome --profile-create-if-missing --keep-profile-changes | cmd",
+    "test": "jest",
+    "lint": "eslint ./",
     "chrome": "npm run clean && npm run build:chrome && echo npx web-ext --source-dir=%CD%\\dist\\chrome run -t chromium --start-url file:///%CD%/test/assets/big_buck_bunny.mp4 --chromium-profile %CD%/.nocommit/profiles/chrome --profile-create-if-missing --keep-profile-changes | cmd",
     "brave": "npm run clean && npm run build:chrome && echo npx web-ext --source-dir=%CD%\\dist\\chrome run -t chromium --chromium-binary \"C:\\Program Files (x86)\\BraveSoftware\\Brave-Browser\\Application\\brave.exe\" --start-url file:///%CD%/test/assets/big_buck_bunny.mp4 --chromium-profile %CD%/.nocommit/profiles/brave --profile-create-if-missing --keep-profile-changes | cmd",
     "clean": "rimraf dist",
@@ -11,9 +14,7 @@
     "build:chrome": "npm run clean-chrome && cross-env NODE_ENV=development webpack --config ./webpack/chrome.js",
     "launch:chrome": "echo npx web-ext --source-dir=%CD%\\dist\\chrome run -t chromium --start-url file:///%CD%/test/assets/big_buck_bunny.mp4 --chromium-profile %CD%/.nocommit/profiles/chrome --profile-create-if-missing --keep-profile-changes | cmd",
     "launch:vsc-main": "echo npx web-ext --source-dir=%CD%\\.nocommit\\vsc-main run -t chromium --start-url file:///%CD%/test/assets/big_buck_bunny.mp4 --chromium-profile %CD%/.nocommit/profiles/chrome --profile-create-if-missing --keep-profile-changes | cmd",
-    "clone-vsc-main": "git clone https://github.com/igrigorik/videospeed.git .nocommit/vsc-main",
-    "show-coverage": "jest --coverage && echo npx web-ext --source-dir=%CD%\\dist\\chrome run -t chromium --start-url file:///%CD%/.nocommit/coverage/lcov-report/index.html --chromium-profile %CD%/.nocommit/profiles/chrome --profile-create-if-missing --keep-profile-changes | cmd",
-    "test": "jest"
+    "clone-vsc-main": "git clone https://github.com/igrigorik/videospeed.git .nocommit/vsc-main"
   },
   "dependencies": {
     "@babel/cli": "^7.18.10",
@@ -29,7 +30,6 @@
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.1",
     "dotenv": "^16.0.2",
-    "generate-json-from-js-webpack-plugin": "^0.1.1",
     "mkdirp": "^1.0.4",
     "rimraf": "^3.0.2",
     "style-loader": "^3.3.1",
@@ -42,6 +42,10 @@
     "zip-webpack-plugin": "^4.0.1"
   },
   "devDependencies": {
+    "babel-jest": "^29.0.2",
+    "eslint": "^8.23.0",
+    "eslint-plugin-jest": "^27.0.3",
+    "generate-json-from-js-webpack-plugin": "^0.1.1",
     "jest": "^29.0.2",
     "jest-environment-jsdom": "^29.0.2",
     "npm-check-updates": "^16.1.0"
