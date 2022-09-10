@@ -1,5 +1,3 @@
-// import { jest } from "@jest/globals";
-
 const Logger = require("./logger");
 
 describe("Logging functionality", () => {
@@ -43,19 +41,19 @@ describe("Logging functionality", () => {
   it("Should not log anything when level is 4 and verbosity is 3", () => {
     logger.verbosity = 3;
     logger.log("test", 4);
-    expect(console.log.mock).not.toHaveBeenCalled;
+    expect(console.log).not.toHaveBeenCalled();
   });
   it("Should not log anything when no level is supplied and default log level is 4", () => {
     logger.verbosity = 3;
     logger.log("test");
-    expect(console.log.mock).not.toHaveBeenCalled;
+    expect(console.log).not.toHaveBeenCalled();
   });
   it("Should throw error when supplied level < 2", () => {
     expect(() => logger.log("test", 1)).toThrow("notImplemented");
   });
   it("Should do nothing when supplied level > 6", () => {
     logger.log("test", 7);
-    expect(console.log.mock).not.toHaveBeenCalled;
+    expect(console.log).not.toHaveBeenCalled();
   });
   it("Should give the same object when attempting to re-initialize (singleton)", () => {
     logger1 = logger;
