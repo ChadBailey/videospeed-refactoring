@@ -1,6 +1,6 @@
 const { version } = require("../version.json");
 const permissions = require("../permissions");
-const { name, short_name, description } = require("../app_info");
+const { name, short_name, description, homepage_url } = require("../app_info");
 
 module.exports = {
   version,
@@ -8,7 +8,12 @@ module.exports = {
   name,
   short_name,
   description,
+  homepage_url,
   permissions,
+  options_ui: {
+    page: "assets/html/options.html",
+    open_in_tab: true,
+  },
   host_permissions: ["<all_urls>"],
   action: {
     default_title: name,
@@ -21,7 +26,15 @@ module.exports = {
   },
   content_scripts: [
     {
+      all_frames: true,
       matches: ["<all_urls>"],
+      match_about_blank: true,
+      exclude_matches: [
+        "https://plus.google.com/hangouts/*",
+        "https://hangouts.google.com/*",
+        "https://meet.google.com/*",
+      ],
+      css: ["assets/css/content.css"],
       js: ["content.js"],
     },
   ],
@@ -35,7 +48,13 @@ module.exports = {
   },
   web_accessible_resources: [
     {
-      resources: ["assets/**"],
+      resources: [
+        "assets/css/content.css", // CSS fixes for many pages such as YouTube
+        "background.js.map", // Maps to allow "real" line and column numbers/debugging
+        "content.js.map",
+        "options.js.map",
+        "popup.js.map",
+      ],
       matches: ["<all_urls>"],
     },
   ],

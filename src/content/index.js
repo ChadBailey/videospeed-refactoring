@@ -1,5 +1,5 @@
-import "./index.css";
 const Logger = require("../lib/logger");
+const shadow_css = require("./shadow_css");
 
 var regStrip = /^[\r\t\f\v ]+|[\r\t\f\v ]+$/gm;
 var regEndsWithFlags = /\/(?!.*(.).*\1)[gimsuy]*$/;
@@ -286,12 +286,10 @@ function defineVideoController() {
     logger.log(`Created shadowroot: ${shadow}`, 5);
     var shadowTemplate = `
         <style>
-          @import "${chrome.runtime.getURL("assets/css/shadow.css")}";
+          ${shadow_css}
         </style>
 
-        <div id="controller" style="top:${top}; left:${left}; opacity:${
-      tc.settings.controllerOpacity
-    }">
+        <div id="controller" style="top:${top}; left:${left}; opacity:${tc.settings.controllerOpacity}">
           <span data-action="drag" class="draggable">${speed}</span>
           <span id="controls">
             <button data-action="rewind" class="rw">«</button>
@@ -592,7 +590,7 @@ function initializeNow(document) {
     defineVideoController();
   } else {
     var link = document.createElement("link");
-    link.href = chrome.runtime.getURL("content.scss");
+    link.href = chrome.runtime.getURL("assets/css/content.css");
     link.type = "text/css";
     link.rel = "stylesheet";
     document.head.appendChild(link);
