@@ -268,17 +268,22 @@ function defineVideoController() {
     logger.log("Speed variable set to: " + speed, 5);
 
     var wrapper = document.createElement("div");
+    logger.log(`Created div: ${wrapper}`, 5);
     wrapper.classList.add("vsc-controller");
+    logger.log(`Added class vsc-controller to div`, 5);
 
     if (!this.video.currentSrc) {
       wrapper.classList.add("vsc-nosource");
+      logger.log(`Added class vsc-nosource to div`, 5);
     }
 
     if (tc.settings.startHidden) {
       wrapper.classList.add("vsc-hidden");
+      logger.log(`Added class vsc-hidden to div`, 5);
     }
 
     var shadow = wrapper.attachShadow({ mode: "open" });
+    logger.log(`Created shadowroot: ${shadow}`, 5);
     var shadowTemplate = `
         <style>
           @import "${chrome.runtime.getURL("assets/css/shadow.css")}";
@@ -298,6 +303,7 @@ function defineVideoController() {
         </div>
       `;
     shadow.innerHTML = shadowTemplate;
+    logger.log(`Applied template to shadroot: ${shadowTemplate}`, 5);
     shadow.querySelector(".draggable").addEventListener(
       "mousedown",
       (e) => {
@@ -306,6 +312,7 @@ function defineVideoController() {
       },
       true
     );
+    logger.log(`Applied listener to ".draggable" class within shadow root`, 5);
 
     shadow.querySelectorAll("button").forEach(function (button) {
       button.addEventListener(
@@ -321,6 +328,10 @@ function defineVideoController() {
         true
       );
     });
+    logger.log(
+      `Added click event listeners to all "button"s within shadowroot, stopped event propagation`,
+      5
+    );
 
     shadow
       .querySelector("#controller")
@@ -518,10 +529,17 @@ function initializeWhenReady(document) {
   };
   if (document) {
     if (document.readyState === "complete") {
+      logger.log("Document ready, initializing", 5);
       initializeNow(document);
     } else {
+      logger.log("Document not ready, adding listener", 5);
       document.onreadystatechange = () => {
+        logger.log(
+          `readystatechange listener fired, checking new ready state: ${document.readyState}`,
+          5
+        );
         if (document.readyState === "complete") {
+          logger.log(`[listener] Document ready, initializing`, 5);
           initializeNow(document);
         }
       };
