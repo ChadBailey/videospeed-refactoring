@@ -1,4 +1,20 @@
 {
+  "name": "videospeed-controller-beta",
+  "long_name": "Video Speed Controller - BETA Channel",
+  "description": "BETA testing release of Video Speed Controller. Speed up, slow down, advance and rewind HTML5 audio/video with shortcuts",
+  "license": "MIT",
+  "homepage": "https://chrome.google.com/webstore/detail/video-speed-controller-be/kgciknbfdanakgjeeoihchpljcejkkdj",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChadBailey/videospeed-refactoring"
+  },
+  "bugs": {
+    "url": "https://github.com/ChadBailey/videospeed-refactoring/issues"
+  },
+  "author": "Ilya Grigorik (https://github.com/igrigorik)",
+  "version": "0.8.3",
+  "lockfileVersion": 2,
+  "requires": true,
   "scripts": {
     "update-dependencies": "npm audit &&  ncu --interactive --format group",
     "show-coverage": "jest --coverage && echo npx web-ext --source-dir=%CD%\\dist\\chrome run -t chromium --start-url file:///%CD%/.nocommit/coverage/lcov-report/index.html --chromium-profile %CD%/.nocommit/profiles/chrome --profile-create-if-missing --keep-profile-changes | cmd",

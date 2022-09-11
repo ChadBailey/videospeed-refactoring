@@ -7,17 +7,18 @@ const { join } = require("path");
 const dotenv = require("dotenv");
 const ZipPlugin = require("zip-webpack-plugin");
 
-const { short_name } = require("../src/manifest/app_info");
-const { version } = require("../src/manifest/version.json");
+const { name, version } = require("../package.json");
 
-const prodPlugins = [],
-  isProd = process.env.NODE_ENV === "production";
+const prodPlugins = [];
+let isProd = process.env.NODE_ENV === "production";
 
 if (isProd) {
   prodPlugins.push(
     new optimize.AggressiveMergingPlugin(),
     new optimize.OccurrenceOrderPlugin()
   );
+} else {
+  console.log("WARNING: Development build only, not for use in prod");
 }
 
 const Root = join(__dirname, "..");
@@ -34,9 +35,7 @@ const Option = join(Source, "option");
 const config = {
   mode: process.env.NODE_ENV,
   target: "web",
-  // devtool: isProd ? "none" : "cheap-source-map",
-  // devtool: "eval",
-  devtool: "source-map",
+  devtool: isProd ? "none" : "source-map",
   entry: {
     background: join(Background, "index.js"),
     popup: join(Popup, "index.js"),
@@ -191,7 +190,7 @@ const buildConfig = (browser, path) => ({
     }),
     new ZipPlugin({
       path: "../release",
-      filename: short_name + "_" + browser + "-" + version + ".zip",
+      filename: name + "_" + browser + "-" + version + ".zip",
     }),
   ],
 });

@@ -1,16 +1,18 @@
 import "./index.css";
 
+import { default as npm_package } from "../../package.json";
+
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelector("#config").addEventListener("click", function () {
     window.open(chrome.runtime.getURL("assets/html/options.html"));
   });
 
   document.querySelector("#about").addEventListener("click", function () {
-    window.open("https://github.com/igrigorik/videospeed");
+    window.open(npm_package.homepage);
   });
 
   document.querySelector("#feedback").addEventListener("click", function () {
-    window.open("https://github.com/igrigorik/videospeed/issues");
+    window.open(npm_package.bugs.url);
   });
 
   document.querySelector("#enable").addEventListener("click", function () {
@@ -28,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function toggleEnabled(enabled, callback) {
     chrome.storage.sync.set(
       {
-        enabled: enabled
+        enabled: enabled,
       },
       function () {
         toggleEnabledUI(enabled);
@@ -56,11 +58,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // document.querySelector("#enable").classList.toggle("hide", enabled);
     // document.querySelector("#disable").classList.toggle("hide", !enabled);
 
-    // const suffix = `${enabled ? "" : "_disabled"}.png`;
-    // console.log(`Setting icon suffix: ${suffix}`);
-
     // !! browserAction was removed in Manifest V3
     // TODO: Migrate to https://developer.chrome.com/docs/extensions/reference/declarativeContent/
+
+    // const suffix = `${enabled ? "" : "_disabled"}.png`;
+    // console.log(`Setting icon suffix: ${suffix}`);
 
     // chrome.browserAction.setIcon({
     //   path: {

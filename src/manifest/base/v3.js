@@ -1,22 +1,23 @@
-const { version } = require("../version.json");
 const permissions = require("../permissions");
-const { name, short_name, description, homepage_url } = require("../app_info");
+const npm_package = require("../../../package.json");
 
-module.exports = {
-  version,
+manifest = {
+  name: npm_package.long_name, // Shows in extension icon right-click menu
+  short_name: npm_package.name,
+  version: npm_package.version,
   manifest_version: 3,
-  name,
-  short_name,
-  description,
-  homepage_url,
+  description: npm_package.description,
+  homepage_url: npm_package.homepage, // Linked on clicking name in extension icon right-click menu
   permissions,
+  // Right-click extension icon > "Options"
   options_ui: {
     page: "assets/html/options.html",
     open_in_tab: true,
   },
   host_permissions: ["<all_urls>"],
+  // Left-click extension icon
   action: {
-    default_title: name,
+    default_title: npm_package.long_name,
     default_popup: "assets/html/popup.html",
     default_icon: {
       19: "assets/images/icon19.png",
@@ -29,6 +30,7 @@ module.exports = {
       all_frames: true,
       matches: ["<all_urls>"],
       match_about_blank: true,
+      // TODO: Move to config?
       exclude_matches: [
         "https://plus.google.com/hangouts/*",
         "https://hangouts.google.com/*",
@@ -59,3 +61,5 @@ module.exports = {
     },
   ],
 };
+
+module.exports = { ...manifest };
