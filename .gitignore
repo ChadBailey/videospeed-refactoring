@@ -3,6 +3,8 @@ local
 
 # IntelliJ IDEA
 .idea/
-node_modules
 dist
 .nocommit
+
+/node_modules/*
+!/node_modules/generate-json-from-js-webpack-plugin/index.js
