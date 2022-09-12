@@ -13,10 +13,7 @@ const prodPlugins = [];
 let isProd = process.env.NODE_ENV === "production";
 
 if (isProd) {
-  prodPlugins.push(
-    new optimize.AggressiveMergingPlugin(),
-    new optimize.OccurrenceOrderPlugin()
-  );
+  prodPlugins.push(new optimize.AggressiveMergingPlugin());
 } else {
   console.log("WARNING: Development build only, not for use in prod");
 }
@@ -35,7 +32,7 @@ const Option = join(Source, "option");
 const config = {
   mode: process.env.NODE_ENV,
   target: "web",
-  devtool: isProd ? "none" : "source-map",
+  devtool: isProd ? false : "source-map",
   entry: {
     background: join(Background, "index.js"),
     popup: join(Popup, "index.js"),
