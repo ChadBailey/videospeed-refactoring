@@ -30,9 +30,11 @@ class Logger {
         console.log("DEBUG:" + message);
       } else if (level === 6) {
         console.log("DEBUG (VERBOSE):" + message);
-        console.trace();
       } else {
         throw "notImplemented";
+      }
+      if (this.verbosity == 6) {
+        console.trace();
       }
     }
   }
