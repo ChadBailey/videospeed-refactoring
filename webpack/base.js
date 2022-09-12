@@ -1,7 +1,7 @@
 const CopyPlugin = require("copy-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const { DefinePlugin, optimize } = require("webpack");
-const GenerateJsonFromJsPlugin = require("generate-json-from-js-webpack-plugin");
+const GenerateJsonFromJsPlugin = require("./generate-json-from-js-webpack-plugin");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const { join } = require("path");
 const dotenv = require("dotenv");
