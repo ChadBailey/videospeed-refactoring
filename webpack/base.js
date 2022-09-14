@@ -27,7 +27,7 @@ const Background = join(Source, "background");
 const Content = join(Source, "content");
 const Popup = join(Source, "popup");
 const Lib = join(Source, "lib");
-const Option = join(Source, "option");
+const Settings = join(Source, "settings");
 
 const config = {
   mode: process.env.NODE_ENV,
@@ -37,7 +37,7 @@ const config = {
     background: join(Background, "index.js"),
     popup: join(Popup, "index.js"),
     content: join(Content, "index.js"),
-    option: join(Option, "index.js"),
+    settings: join(Settings, "index.js"),
   },
   output: {
     path: join(__dirname, "../", "dist"),
@@ -159,7 +159,7 @@ const config = {
       content: Content,
       popup: Popup,
       assets: Assets,
-      option: Option,
+      settings: Settings,
     },
   },
   optimization: {

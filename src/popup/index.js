@@ -4,7 +4,7 @@ import { default as npm_package } from "../../package.json";
 
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelector("#config").addEventListener("click", function () {
-    window.open(chrome.runtime.getURL("assets/html/options.html"));
+    window.open(chrome.runtime.getURL("assets/html/settings.html"));
   });
 
   document.querySelector("#about").addEventListener("click", function () {

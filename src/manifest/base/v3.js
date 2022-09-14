@@ -11,7 +11,7 @@ manifest = {
   permissions,
   // Right-click extension icon > "Options"
   options_ui: {
-    page: "assets/html/options.html",
+    page: "assets/html/settings.html",
     open_in_tab: true,
   },
   host_permissions: ["<all_urls>"],
