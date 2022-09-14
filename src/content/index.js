@@ -1,5 +1,5 @@
 const Logger = require("../lib/logger");
-const shadow_css = require("./shadow_css");
+const shadow_css_tpl = require("./shadow_css_tpl");
 
 var regStrip = /^[\r\t\f\v ]+|[\r\t\f\v ]+$/gm;
 var regEndsWithFlags = /\/(?!.*(.).*\1)[gimsuy]*$/;
@@ -286,7 +286,7 @@ function defineVideoController() {
     logger.log(`Created shadowroot: ${shadow}`, 5);
     var shadowTemplate = `
         <style>
-          ${shadow_css}
+          ${shadow_css_tpl}
         </style>
 
         <div id="controller" style="top:${top}; left:${left}; opacity:${tc.settings.controllerOpacity}">

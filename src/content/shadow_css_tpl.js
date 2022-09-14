@@ -1,4 +1,4 @@
-const shadow_css = `
+const shadow_css_tpl = `
 * {
     line-height: 1.8em;
     font-family: sans-serif;
@@ -96,4 +96,4 @@ const shadow_css = `
   }  
 `;
 
-module.exports = shadow_css;
+module.exports = shadow_css_tpl;
