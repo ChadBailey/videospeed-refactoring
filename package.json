@@ -29,6 +29,8 @@
     "clean-chrome": "rimraf dist/chrome",
     "build:chrome": "npm run clean-chrome && cross-env NODE_ENV=development webpack --config ./webpack/chrome.js",
     "launch:chrome": "echo npx web-ext --source-dir=%CD%\\dist\\chrome run -t chromium --start-url file:///%CD%/test/assets/big_buck_bunny.mp4 --chromium-profile %CD%/.nocommit/profiles/chrome --profile-create-if-missing --keep-profile-changes | cmd",
+    "launch:firefox": "echo npx web-ext --source-dir=%CD%\\dist\\firefox run -t firefox-desktop --start-url file:///%CD%/test/assets/big_buck_bunny.mp4 --firefox-profile %CD%/.nocommit/profiles/firefox --profile-create-if-missing --keep-profile-changes | cmd",
+    "launch:firefox-android": "cross-env web-ext --source-dir=./dist/firefox run -t firefox-android",
     "launch:vsc-main": "echo npx web-ext --source-dir=%CD%\\.nocommit\\vsc-main run -t chromium --start-url file:///%CD%/test/assets/big_buck_bunny.mp4 --chromium-profile %CD%/.nocommit/profiles/chrome --profile-create-if-missing --keep-profile-changes | cmd",
     "clone-vsc-main": "git clone https://github.com/igrigorik/videospeed.git .nocommit/vsc-main"
   },
