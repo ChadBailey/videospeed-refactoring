@@ -1,3 +1,4 @@
+const { strip, regexEscapeString } = require("../lib/lib");
 const Logger = require("../lib/logger");
 const shadow_css_tpl = require("./shadow_css_tpl");
 
@@ -23,7 +24,7 @@ var tc = {
       vine.co
       imgur.com
       teams.microsoft.com
-    `.replace(regStrip, ""),
+    `,
     defaultLogLevel: 4,
     logLevel: 6,
   },
@@ -95,7 +96,7 @@ chrome.storage.sync.get(tc.settings, function (storage) {
       startHidden: tc.settings.startHidden,
       enabled: tc.settings.enabled,
       controllerOpacity: tc.settings.controllerOpacity,
-      blacklist: tc.settings.blacklist.replace(regStrip, ""),
+      blacklist: tc.settings.blacklist,
     });
   }
   tc.settings.lastSpeed = Number(storage.lastSpeed);
@@ -375,11 +376,6 @@ function defineVideoController() {
   };
 }
 
-function escapeStringRegExp(str) {
-  let matchOperatorsRe = /[|\\{}()[\]^$+*?.]/g;
-  return str.replace(matchOperatorsRe, "\\$&");
-}
-
 function isBlacklisted() {
   logger.log("Checking if blacklisted", 5);
   let blacklisted = false;
@@ -406,7 +402,7 @@ function isBlacklisted() {
         return;
       }
     } else {
-      var regexp = new RegExp(escapeStringRegExp(match));
+      var regexp = new RegExp(regexEscapeString(match));
     }
 
     if (regexp.test(location.href)) {
