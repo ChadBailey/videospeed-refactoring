@@ -1,5 +1,5 @@
 import { Conf, strip } from "../lib/lib";
-import "./index.css";
+import "./settings.css";
 
 var keyBindings = [];
 

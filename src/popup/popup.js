@@ -1,4 +1,4 @@
-import "./index.css";
+import "./popup.css";
 
 import { default as npm_package } from "../../package.json";
 

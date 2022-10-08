@@ -34,10 +34,10 @@ const config = {
   target: "web",
   devtool: isProd ? false : "source-map",
   entry: {
-    background: join(Background, "index.js"),
-    popup: join(Popup, "index.js"),
-    content: join(Content, "index.js"),
-    settings: join(Settings, "index.js"),
+    background: join(Background, "background.js"),
+    popup: join(Popup, "popup.js"),
+    content: join(Content, "content.js"),
+    settings: join(Settings, "settings.js"),
   },
   output: {
     path: join(__dirname, "../", "dist"),
