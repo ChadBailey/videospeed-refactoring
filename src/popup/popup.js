@@ -50,15 +50,25 @@ document.addEventListener("DOMContentLoaded", function () {
       enabled ? "" : "none"
     }`;
 
-    // Legacy code safekeeping. The original method was to add/remove the
-    // "hide" class. I do not know why this stopped working, I only know that
-    // directly applying the display style resolved it. This should be a target
-    // for clean up in a future release.
+    // Legacy code safekeeping.
+
+    // ISSUE #1:
+    // The original method was to add/remove the "hide" class. I do not know
+    // why this stopped working, I only know that directly applying the display
+    // style resolved it. This should be a target for clean up in a future
+    // release.
+
+    // Additionally, this new method generates a security/performance warning
+    // when submitting to Firefox. See https://github.com/ChadBailey/videospeed-refactoring/issues/20
 
     // document.querySelector("#enable").classList.toggle("hide", enabled);
     // document.querySelector("#disable").classList.toggle("hide", !enabled);
 
-    // !! browserAction was removed in Manifest V3
+    // ISSUE #2:
+    // browserAction was removed in Manifest V3 and therefore showing the
+    // disabled icon when VSC is disabled stopped working when we moved to
+    // Manifest v3
+    //
     // TODO: Migrate to https://developer.chrome.com/docs/extensions/reference/declarativeContent/
 
     // const suffix = `${enabled ? "" : "_disabled"}.png`;

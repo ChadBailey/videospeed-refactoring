@@ -41,7 +41,4 @@ module.exports = {
     "options.js.map",
     "popup.js.map",
   ],
-  // ...(process.env.NODE_ENV === 'development' ? {
-  //   content_security_policy: "script-src 'self' 'unsafe-eval'; font-src 'self' data: https://fonts.gstatic.com/s/dmsans; object-src 'self';"
-  // } : {})
 };
