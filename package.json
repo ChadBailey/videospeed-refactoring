@@ -22,8 +22,11 @@
     "show-coverage": "jest --coverage && echo npx web-ext --source-dir=%CD%\\dist\\chrome run -t chromium --start-url file:///%CD%/.nocommit/coverage/lcov-report/index.html --chromium-profile %CD%/.nocommit/profiles/chrome --profile-create-if-missing --keep-profile-changes | cmd",
     "build": "cross-env NODE_ENV=production webpack --config ./webpack/config.js",
     "build-dev": "cross-env NODE_ENV=development webpack --config ./webpack/config.js",
+    "init": "mkdirp .nocommit/profiles/chrome .nocommit/profiles/brave .nocommit/profiles/firefox",
     "clean": "rimraf dist",
-    "init:profile": "mkdirp .nocommit/profiles/chrome .nocommit/profiles/brave .nocommit/profiles/firefox",
+    "clean-profiles": "rimraf .nocommit/profiles/chrome .nocommit/profiles/brave .nocommit/profiles/firefox",
+    "clean-coverage": "rimraf .nocommit/coverage",
+    "clean-all": "rimraf dist .nocommit",
     "chrome": "npm run clean && npm run build:chrome-dev && npm run launch:chrome",
     "brave": "npm run clean && npm run build:chrome-dev && npm run launch:brave",
     "firefox": "npm run clean && npm run build:firefox-dev && npm run launch:firefox",
@@ -32,7 +35,7 @@
     "build:chrome-dev": "npm run clean && cross-env NODE_ENV=development webpack --config ./webpack/chrome.js",
     "build:firefox-dev": "npm run clean && cross-env NODE_ENV=development webpack --config ./webpack/firefox.js",
     "launch:chrome": "echo npx web-ext --source-dir=%CD%\\dist\\chrome run -t chromium --start-url file:///%CD%/test/assets/big_buck_bunny.mp4 --chromium-profile %CD%/.nocommit/profiles/chrome --profile-create-if-missing --keep-profile-changes | cmd",
-    "launch:brave": "echo npx web-ext --source-dir=%CD%\\dist\\chrome run -t chromium --chromium-binary \"C:\\Program Files (x86)\\BraveSoftware\\Brave-Browser\\Application\\brave.exe\" --start-url file:///%CD%/test/assets/big_buck_bunny.mp4 --chromium-profile %CD%/.nocommit/profiles/brave --profile-create-if-missing --keep-profile-changes | cmd",
+    "launch:brave": "echo npx web-ext --source-dir=%CD%\\dist\\chrome run -t chromium --chromium-binary \"%PROGRAMFILES%\\BraveSoftware\\Brave-Browser\\Application\\brave.exe\" --start-url file:///%CD%/test/assets/big_buck_bunny.mp4 --chromium-profile %CD%/.nocommit/profiles/brave --profile-create-if-missing --keep-profile-changes | cmd",
     "launch:firefox": "echo npx web-ext --source-dir=%CD%\\dist\\firefox run -t firefox-desktop --start-url file:///%CD%/test/assets/big_buck_bunny.mp4 --firefox-profile %CD%/.nocommit/profiles/firefox --profile-create-if-missing --keep-profile-changes | cmd"
   },
   "dependencies": {
